@@ -1,0 +1,796 @@
+<!DOCTYPE HTML>
+<html manifest="arjwrss.appcache">
+<head>
+    <title>RSS.ARJW</title>
+    <meta charset="UTF-8" />
+        <meta name="description" content="" />
+        <meta name="author" content="Antoine RJ Wright" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+            <link rel="apple-touch-startup-image" href="../arjw-logo.jpg">
+            <meta name="apple-mobile-web-app-title" content="RSS.ARJW">
+        <meta http-equiv="refresh" content="960" />
+        <link rel="shortcut icon" href="../favicon.ico">
+            <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+            <link rel="alternate" type="application/rss+xml" title="rss.arjw v3.9.38 - compiled by RSS Mix" href="http://rssmix.com/u/3858598/rss.xml" />
+	<style type="text/css">
+		html {font-size: 1em; font-family: Arial, sans-serif; color:#000; background:#063;}
+		body {margin: .5em auto; padding: .125em; background: #FFF; border: 1px solid #008080;position:absolute;top:20px;}
+		a, a:visited {color:#063; text-decoration:none;}
+			a:visited {display:none;}
+			a:hover, h2:hover {cursor:pointer; background-color:#CCC; color:#F60;}
+			a:hover, a:focus {color:#F90; text-decoration:underline;}
+			footer p a, footer p a:visited {font-weight:700;}
+		footer {font-size:.6em; font-style:oblique; clear:both;}
+		header {height:50px; width:100%; background:transparent; border-bottom: 1px solid #999; color:#063;}
+			h1 {max-width:40%; font-size:1em; line-height:2em; margin-left:.25em; padding:.25em; height:2em;}
+				h1 {background:transparent url(../arjw-logo.jpg) 0 -1px no-repeat; background-size: 44px 50px;}
+				h1 span {position:absolute; top:-1000px;}
+			nav {margin-left:40%; margin-top:-4em; font-size:.8em;}
+			nav ul li {display:inline-block; padding:.25em;}
+				nav ul li a, nav ul li a:visited {color:#fff; text-decoration:none;}
+				nav ul li a:hover, nav ul li a:focus {font-weight:bold; background-color:#000; text-decoration:underline;}
+				ul.feedlibrary {positon:relative; top:50px; border:1px solid #000; padding: .25em; background-color:#eee; z-index:99;}
+					ul.feedlibrary li {display:block; padding:.25em; border-bottom:1px solid #bbb; min-height:25px;}
+					ul.feedlibrary li a, ul.feedlibrary li a:visited {color:#008080; padding:.25em;}
+		h2 {padding: .25em .125em;}
+		article.feed {display:none;}
+			article.feedlist ul {margin-top:-1.5em;font-family: Arial, sans-serif; font-size:.75em; margin-left: .25em; border-left:1px solid #ccc; padding-left: .25em;}
+			article.feedlist ul li {padding:.5em; list-style-type:none;}
+			article.feedlist ul li a {font-family: Arial, sans-serif; text-decoration:none;}
+				article.feedlist ul li a:hover {color:#fff;}
+			article.feedlist ul li a:visited {display:none;}
+				article u li a:visited {display:none;}
+		#rsslink, .inactive {display:none;}
+		.active {display:block; background-color:#eee;}
+			.active h2:before {content: "\00BB \0020"; padding-left:1em;}
+		@media (min-width: 600px) and (max-width: 1023px) {
+			section.rssfeed {float:left; width:50%;}	
+		}
+		@media (min-width: 1024px) {
+			section.rssfeed {float:left; width:33%;}	
+		}
+        /* RSS CSS icon */
+        ul li.rss, ul li.netvibes {
+           width:33px;
+           height:33px;
+           margin:0 0;
+        }
+        ul li.rss {
+           margin-top: -5px;
+        }
+        ul li.rss a, ul li.netvibes a {
+           display:block;
+           width:32px;
+           height:32px;
+           overflow:hidden;
+           border:1px solid transparent;
+           line-height:33px;
+           text-decoration:none;
+           /* css3 */
+           text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+           -moz-border-radius:5px;
+           -webkit-border-radius:5px;
+           border-radius:5px; /* standards version last */
+        }
+        .rss a {
+           position:relative;
+           width:30px;
+           padding:0 2px;
+           border-color:#ea6635;
+           text-transform:lowercase;
+           text-indent:-93px;
+           font-size:32px;
+           font-weight:bold;
+           color:#fff;
+           background:#e36443;
+           /* css3 */
+           -moz-box-shadow:0 0 4px rgba(0,0,0,0.4);
+           -webkit-box-shadow:0 0 4px rgba(0,0,0,0.4);
+           box-shadow:0 0 4px rgba(0,0,0,0.4);
+           background:-webkit-gradient(linear, left top, left bottom, from(#f19242), to(#e36443));
+           background:-moz-linear-gradient(top, #f19242, #e36443);
+           background:linear-gradient(top, #f19242, #e36443);
+        }
+        .rss a:before, .rss a:after {
+           content:"";
+           position:absolute;
+           bottom:5px;
+           left:5px;
+        }
+        /* create circle */
+        .rss a:before {
+           width:6px;
+           height:6px;
+           background:#fff;
+           /* css3 */
+           -moz-border-radius:6px;
+           -webkit-border-radius:6px;
+           border-radius:6px;
+        }
+        /* create the two arcs */
+        .rss a:after {
+           width:11px;
+           height:11px;
+           border-style:double;
+           border-width:12px 12px 0 0;
+           border-color:#fff;
+           /* css3 */
+           -moz-border-radius:0 25px 0 0;
+           -webkit-border-radius:0 25px 0 0;
+           border-radius:0 25px 0 0;
+        }
+        .netvibes a {
+            position:relative;
+            border-color:#0c5f0c;
+            text-align:center;
+            text-indent:-9000px;
+            font-size: 89px;
+            font-weight:bold;
+            color:#fff;
+            background:#138210;
+            /* css3 */
+            -moz-box-shadow:0 0 2px rgba(0,0,0,0.4);
+            -webkit-box-shadow:0 0 2px rgba(0,0,0,0.4);
+            box-shadow:0 0 2px rgba(0,0,0,0.4); /* standards version last */
+            /* NOTE: webkit gradient implementation is not as per spec */
+            background:-webkit-gradient(linear, left top, left bottom, from(#68db21), to(#138210));
+            background:-moz-linear-gradient(top, #68db21, #138210);
+        }
+        /* create the + symbol */
+        .netvibes a:after {
+            content:"+";
+            position:absolute;
+            left:0;
+            top:0;
+            width:32px;
+            text-indent:0;
+            text-align:center;
+            font-size:44px;
+            color:#fff;
+        }
+		/* code to make invisible links that have been clicked on */
+		.rss-item a:visited {display:none; visibility:hidden;}
+	</style>
+	<script src="../jquery-latest.min.js"></script>
+    <script src="https://www.dropbox.com/s/pqw4f91gt1jn0yd/jquery-latest.min.js"></script>
+	
+	<!-- space here for JS that creates tweet/G+ entry each time an article is clicked on -->
+
+</head>
+<body>
+<header>
+ 	<h1 title="RSS.ARJW" tabindex="1" class="fn"><span>RSS.ARJW</span></h1>
+	<script>$('h1').click(function () {$('article.feedlist').toggleClass('feed');});</script>
+ 	<nav>
+ 		<ul>
+ 			<!--<li><a class="refresh">Refresh</a></li>
+ 			<li><a class="recommend">Recommend</a></li>-->
+			<li class="rss"><a class="rsslist" href="http://rssmix.com/u/3858598/rss.xml" title="rss.arjw v3.9.38 feed">Feed</a></li>
+			<li class="netvibes"><a class="feedlibrary" title="List of Subscribed Sites (by RSS URL)">Library</a>
+			<script>$('a.feedlibrary').click(function () {$('ul.feedlibrary').toggleClass('inactive', 'active');});</script>
+				<ul class="feedlibrary inactive">
+					<li><a href="http://mobileministrymagazine.com/feed/">MMM</a></li>
+					<li><a href="http://scripting.com/rss.xml">Scripting News</a></li>
+					<li><a href="http://links.scripting.com/rss.xml">Scpt Nws Link Blog</a></li>
+					<li><a href="http://daringfireball.net/index.xml">Daring Fireball</a></li>
+					<li><a href="http://feeds.arstechnica.com/arstechnica/features">Ars Technica (Features)</a></li>
+					<li><a href="http://mentalfloss.feedsportal.com/c/35119/f/649404/index.rss">Mental Floss</a></li>
+					<li><a href="http://excapite.blogspot.com/feeds/posts/default?alt=rss">Excapite</a></li>
+					<li><a href="http://renaissancechambara.jp/feed/">Ged Carroll/Renaissance Chambara</a></li>
+					<li><a href="http://www.fastcompany.com/rss.xml">Fast Company</a></li>
+					<li><a href="http://espn.go.com/blog/feed?blog=truehoop">True Hoop</a></li>
+					<li><a href="http://feeds.kottke.org/main">Kottke</a></li>
+					<li><a href="http://feeds.harvardbusiness.org/harvardbusiness/">Harvard Business Review</a></li>
+					<li><a href="http://www.ssireview.org/site/rss_2.0">Stanford Innovation Review</a></li>
+					<li><a href="http://feeds.bbci.co.uk/news/rss.xml">BBC</a></li>
+					<li><a href="http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989">Aljazeera</a>
+					<li><a href="http://www.textually.org/atom.xml">Textually</a></li>
+					<li><a href="http://mobilesociety.typepad.com/mobile_life/atom.xml">Wireless Moves</a></li>
+					<li><a href="http://uxmag.com/rss-feed">UX Mag</a></li>
+					<li><a href="http://palmaddict.tumblr.com/rss">Palm Addict</a></li>
+					<li><a href="http://urban-scholar.com/feed">Urban Scholar</a></li>
+					<li><a href="http://thevoicemail.wordpress.com/feed/">The Voicemail</a></li>
+					<li><a href="http://www.bbc.co.uk/blogs/outriders/rss.xml">BBC Outriders</a></li>
+					<li><a href="http://feeds.technologyreview.com/technology_review_top_stories">MIT Tech Review</a></li>
+					<li><a href="http://qz.com/feed/">Quartz</a></li>
+					<li><a href="https://medium.com/feed/hidden-in-plain-sight">Hidden in Plain Sight</a></li>
+					<li><a href="http://bergie.iki.fi/blog/rss.xml">Henri Bergius</a></li>
+					<li><a href="http://mobilism.nl/links.rss">Mobilism: Links</a></li>
+					<li><a href="http://blogs.law.harvard.edu/doc/feed/">Doc Searls Weblog</a></li>
+					<li><a href="http://bikeyface.com/feed/">Bikeyface</a></li>
+					<li><a href="http://www.insertimg.com/feed/">Insert IMG</a></li>
+					<li><a href="http://www.dcrainmaker.com/feed/">DC Rainmaker</a></li>
+					<li><a href="http://feeds.feedburner.com/elezea">Elezea</a></li>
+					<li><a href="http://stevelitchfield.com/sshow/sshowvga.rss">The Phones Show</a></li>
+					<li><a href="http://stratechery.com/feed/">Stratechery</a></li>
+					<li><a href="feed://asbojesus.wordpress.com/feed/">ASBO Jesus</a></li>
+					<li><a href="http://readlists.com/user/keeprunning/feed/">Keep Running's Readlist</a></li>
+                    <li><a href="http://feeds.feedburner.com/marginalrevolution/feed">Marginal Revolution</a></li>
+                    <li><a href="http://ben-evans.com/feed">Ben Evans</a></li>
+                    <li><a href="http://pressthink.org/rss/">PressThink</a></li>
+                    <li><a href="http://tomfishburne.com/feed">Marketoonist</a></li>
+                    <li><a href="http://tabdump.com/blog?format=rss">TabDump</a></li>
+                    <li><a href="http://techpinions.com/feed">Techpinions</a></li>
+                    <li><a href="http://fivethirtyeight.com/features/feed/">538</a></li>
+                  <li><a href="http://nextcity.org/feeds/daily">Next City</a></li>
+				</ul>
+			</li>
+ 		</ul>
+ 	</nav>
+ 	 	<div style="clear:both;"> </div>
+</header>
+
+<!--How to Tweet When Items are Clicked to Be Read
+#Use Twitter Intents
+#Example Code: https://twitter.com/intent/tweet?text=RSS.ARJW%3A%20Blog.ARJW&url=http%3A%2F%2Fblog.antoinerjwright.com&via=myEN&hashtags=mobmin
+#Example Code: https://twitter.com/intent/tweet (text, url, via, hashtags)
+  
+All compiled feeds via RSS Mix
+<section class="rssfeed all">
+	<h2 class="feedtitle all">All</h2>
+	<script>$('h2.all').click(function () {$('article.all-feed').toggleClass('feed');});</script>
+		<article class="active feedlist all-feed">
+			<span class="rss2js-articles"><script src="http://convert.rss-to-javascript.com/?src=http://rssmix.com/u/3725275/rss.xml&amp;desc=0&amp;desc_max=7&chan=0&simple_chan=0&amp;font=&fgcolor=&bgcolor=&date=0&amp;target=&amp;num=25&amp;target=&amp;use_lists=1&amp;font_size=" ></script></span>
+			<noscript>Your browser does not support JavaScript.</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed mmm">
+	<h2 class="feedtitle mmm">MMM</h2>
+	<script>$('h2.mmm').click(function () {$('article.mmm-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist mmm-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.mobileministrymagazine.com%2Ffeed%2F&amp;num=5&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.mobileministrymagazine.com%2Ffeed%2F&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed sn">
+	<h2 class="feedtitle sn">Scripting News</h2>
+	<script>$('h2.sn').click(function () {$('article.sn-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist sn-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fscripting.com%2Frss.xml&amp;num=5&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fscripting.com%2Frss.xml&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed sn-lb">
+	<h2 class="feedtitle sn-lb">Scripting News: Linkblog</h2>
+	<script>$('h2.sn-lb').click(function () {$('article.sn-lb-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist sn-lb-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Flinks.scripting.com%2Frss.xml&amp;num=5&amp;desc=1&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+    		<noscript>
+    			<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Flinks.scripting.com%2Frss.xml&amp;num=5&amp;desc=1&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+    		</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed df">
+	<h2 class="feedtitle df">Daring Fireball</h2>
+	<script>$('h2.df').click(function () {$('article.df-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist df-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fdaringfireball.net%2Findex.xml&amp;num=5&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fdaringfireball.net%2Findex.xml&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed ns538">
+    <h2 class="feedtitle ns538">538</h2>
+	<script>$('h2.ns538').click(function () {$('article.ns-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist ns-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffivethirtyeight.com%2Ffeatures%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+              <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffivethirtyeight.com%2Ffeatures%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+              </noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+  
+<section class="rssfeed atf">
+    <h2 class="feedtitle atf">Ars Technica</h2>
+	<script>$('h2.atf').click(function () {$('article.atf-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist atf-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.arstechnica.com%2Farstechnica%2Findex&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.arstechnica.com%2Farstechnica%2Findex&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed str">
+	<h2 class="feedtitle str">Stratechery</h2>
+	<script>$('h2.str').click(function () {$('article.str-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist str-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fstratechery.com%2Ffeed&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fstratechery.com%2Ffeed&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed et">
+    <h2 class="feedtitle et">Textually</h2>
+	<script>$('h2.et').click(function () {$('article.et-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist et-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.textually.org%2Findex.rdf&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.textually.org%2Findex.rdf&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed el">
+	<h2 class="feedtitle el">Elezea</h2>
+	<script>$('h2.el').click(function () {$('article.el-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist el-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.elezea.com%2Ffeed%2F&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.elezea.com%2Ffeed%2F&amp;num=5&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed be">
+    <h2 class="feedtitle be">Ben Evans</h2>
+	<script>$('h2.be').click(function () {$('article.be-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist be-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fben-evans.com%2F%3Fformat%3Drss&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fben-evans.com%2F%3Fformat%3Drss&amp;num=3&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+    		<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed rc">
+    <h2 class="feedtitle rc">Renaissance Chambara</h2>
+    <script>$('h2.rc').click(function () {$('article.rc-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist rc-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Frenaissancechambara.jp%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Frenaissancechambara.jp%2Ffeed%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed pa">
+    <h2 class="feedtitle pa">Palm Addict</h2>
+	<script>$('h2.pa').click(function () {$('article.pa-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist pa-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fpalmaddict.tumblr.com%2Frss&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fpalmaddict.tumblr.com%2Frss&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed rfm">
+    <h2 class="feedtitle rfm">Radio Free Mobile</h2>
+    <script>$('h2.rfm').click(function () {$('article.rfm-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist rfm-feed">
+            <script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.radiofreemobile.com%2Ffeed%2F&num=2&targ=y&utf=y"  charset="UTF-8" type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.radiofreemobile.com%2Ffeed%2F&num=2&targ=y&utf=y&html=y">View RSS feed</a>
+            </noscript>
+    		<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed rec">
+    <h2 class="feedtitle rec">Re/Code</h2>
+    <script>$('h2.rec').click(function () {$('article.rec-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist rec-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Frecode.net%2Ffeed%2F&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+            <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Frecode.net%2Ffeed%2F&amp;num=5&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+    		<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed td">
+    <h2 class="feedtitle td">TabDump</h2>
+    <script>$('h2.td').click(function () {$('article.td-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist td-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftabdump.com%2Fblog%3Fformat%3Drss&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftabdump.com%2Fblog%3Fformat%3Drss&amp;num=2&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed tp">
+	<h2 class="feedtitle tp">Techpinions</h2>
+		<script>$('h2.tp').click(function () {$('article.tp-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist tp-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftechpinions.com%2Ffeed&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftechpinions.com%2Ffeed&amp;num=2&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed krr">
+    <h2 class="feedtitle krr">Keep Running's Readlist</h2>
+    <script>$('h2.krr').click(function () {$('article.krr-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist krr-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Freadlists.com%2Fuser%2Fkeeprunning%2Ffeed%2F&amp;num=3&amp;targ=y&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Freadlists.com%2Fuser%2Fkeeprunning%2Ffeed%2F%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed mobl">
+    <h2 class="feedtitle mobl">Mobilism: Links</h2>
+	<script>$('h2.mobl').click(function () {$('article.mobl-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist mobl-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmobilism.nl%2Flinks.rss&amp;num=3&amp;targ=y&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmobilism.nl%2Flinks.rss%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed mf">
+	<h2 class="feedtitle mf">Mental Floss</h2>
+	<script>$('h2.mf').click(function () {$('article.mf-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist mf-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmentalfloss.feedsportal.com%2Fc%2F35119%2Ff%2F649404%2Findex.rss&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmentalfloss.feedsportal.com%2Fc%2F35119%2Ff%2F649404%2Findex.rss&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed bbc-ts">
+	<h2 class="feedtitle bbc-ts">BBC</h2>
+	<script>$('h2.bbc-ts').click(function () {$('article.bbc-ts-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist bbc-ts-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.bbci.co.uk%2Fnews%2Frss.xml&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed al">
+	<h2 class="feedtitle al">Aljazeera</h2>
+	<script>$('h2.al').click(function () {$('article.al-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist al-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.aljazeera.com%2FServices%2FRss%2F%3FPostingId%3D2007731105943979989&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.aljazeera.com%2FServices%2FRss%2F%3FPostingId%3D2007731105943979989&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed pt">
+    <h2 class="feedtitle pt">PressThink</h2>
+	<script>$('h2.pt').click(function () {$('article.pt-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist pt-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fpressthink.org%2Frss%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fpressthink.org%2Frss%2F&amp;num=2&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+    		<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed nc">
+    <h2 class="feedtitle nc">Next City</h2>
+    <script>$('h2.nc').click(function () {$('article.nc-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist nc-feed">
+			<script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnextcity.org%2Ffeeds%2Fdaily&num=2&targ=y&utf=y"  charset="UTF-8" type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnextcity.org%2Ffeeds%2Fdaily&num=2&targ=y&utf=y&html=y">View RSS feed</a>
+            </noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed fc">
+	<h2 class="feedtitle fc">Fast Company</h2>
+	<script>$('h2.fc').click(function () {$('article.fc-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist fc-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.fastcompany.com%2Frss.xml&amp;num=5&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.fastcompany.com%2Frss.xml&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed qz">
+	<h2 class="feedtitle qz">Quartz</h2>
+	<script>$('h2.qz').click(function () {$('article.qz-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist qz-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fqz.com%2Ffeed%2F&amp;num=5&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fqz.com%2Ffeed%2F&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed hbr">
+	<h2 class="feedtitle hbr">HBR</h2>
+	<script>$('h2.hbr').click(function () {$('article.hbr-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist hbr-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.harvardbusiness.org%2Fharvardbusiness%2F&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.harvardbusiness.org%2Fharvardbusiness%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed ssir">
+	<h2 class="feedtitle ssir">SSIR</h2>
+	<script>$('h2.ssir').click(function () {$('article.ssir-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist ssir-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.ssireview.org%2Fsite%2Frss_2.0&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.ssireview.org%2Fsite%2Frss_2.0&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed mr">
+    <h2 class="feedtitle mr">Marginal Revolution</h2>
+    <script>$('h2.mr').click(function () {$('article.mr-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist mr-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fmarginalrevolution%2Ffeed&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2Fmarginalrevolution%2Ffeed&amp;num=3&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed ko">
+	<h2 class="feedtitle ko">Kottke</h2>
+	<script>$('h2.ko').click(function () {$('article.ko-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist ko-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.kottke.org%2Fmain&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.kottke.org%2Fmain&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed mit">
+	<h2 class="feedtitle mit">MIT Tech Review</h2>
+	<script>$('h2.mit').click(function () {$('article.mit-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist mit-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.technologyreview.com%2Ftechnology_review_top_stories&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.technologyreview.com%2Ftechnology_review_top_stories&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed ns">
+    <h2 class="feedtitle ns">Excapite</h2>
+	<script>$('h2.ns').click(function () {$('article.ns-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist ns-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fexcapite.blogspot.com%2Ffeeds%2Fposts%2Fdefault&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fexcapite.blogspot.com%2Ffeeds%2Fposts%2Fdefault&amp;num=2&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed wm">
+    <h2 class="feedtitle wm">Wireless Moves</h2>
+	<script>$('h2.wm').click(function () {$('article.wm-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist wm-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmobilesociety.typepad.com%2Fmobile_life%2Fatom.xml&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fmobilesociety.typepad.com%2Fmobile_life%2Fatom.xml&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed dsw">
+    <h2 class="feedtitle dsw">Doc Searls</h2>
+    <script>$('h2.dsw').click(function () {$('article.dsw-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist dsw-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fblogs.law.harvard.edu%2Fdoc%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fblogs.law.harvard.edu%2Fdoc2Ffeed%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed hb">
+	<h2 class="feedtitle hb">Henri Bergius</h2>
+	<script>$('h2.hb').click(function () {$('article.hb-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist hb-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fbergie.iki.fi%2Fblog%2Frss.xml&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fbergie.iki.fi%2Fblog%2Frss.xml&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed uxm">
+	<h2 class="feedtitle uxm">UX Mag</h2>
+	<script>$('h2.uxm').click(function () {$('article.uxm-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist uxm-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2FUXM&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ffeeds.feedburner.com%2FUXM&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed hips">
+	<h2 class="feedtitle hips">Hidden in Plain Sight</h2>
+	<script>$('h2.hips').click(function () {$('article.hips-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist hips-feed">
+			<span class="rss2js-articles"><script src="http://convert.rss-to-javascript.com/?src=https://medium.com/feed/hidden-in-plain-sight&amp;desc=0&amp;desc_max=7&chan=0&simple_chan=0&amp;font=&fgcolor=&bgcolor=&date=0&amp;target=&amp;num=3&amp;target=&amp;use_lists=1&amp;font_size=" ></script></span>
+			<noscript>Your browser does not support JavaScript.</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed ubsh">
+	<h2 class="feedtitle ubsh">Urban Scholar</h2>
+	<script>$('h2.ubsh').click(function () {$('article.us-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist us-feed">
+            <script language="JavaScript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fblog.urban-scholar.com%2Fatom.xml&num=2&targ=y&utf=y"  charset="UTF-8" type="text/javascript"></script>
+                <noscript>
+                    <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fblog.urban-scholar.com%2Fatom.xml&num=2&targ=y&utf=y&html=y">View RSS feed</a>
+                </noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed th">
+	<h2 class="feedtitle th">True Hoop</h2>
+	<script>$('h2.th').click(function () {$('article.th-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist th-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fespn.go.com%2Fblog%2Ffeed%3Fblog%3Dtruehoop&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fespn.go.com%2Fblog%2Ffeed%3Fblog%3Dtruehoop&amp;num=5&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed dcr">
+    <h2 class="feedtitle dcr">DC Rainmaker</h2>
+    <script>$('h2.dcr').click(function () {$('article.dcr-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist dcr-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.dcrainmaker.com%2Ffeed%2F&amp;num=3&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.dcrainmaker.com%2Ffeed%2F&amp;num=3&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed ps">
+	<h2 class="feedtitle ps">Phones Show</h2>
+	<script>$('h2.ps').click(function () {$('article.ps-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist ps-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fstevelitchfield.com%2Fsshow%2Fsshowvga.rss&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fstevelitchfield.com%2Fsshow%2Fsshowvga.rss&amp;num=2&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed vm">
+	<h2 class="feedtitle vm">The Voicemail</h2>
+	<script>$('h2.vm').click(function () {$('article.vm-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist vm-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fthevoicemail.wordpress.com%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fthevoicemail.wordpress.com%2Ffeed%2F&amp;num=2&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed bf">
+    <h2 class="feedtitle bf">Bikeyface</h2>
+	<script>$('h2.bf').click(function () {$('article.bf-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist bf-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fbikeyface.com%2Ffeed%2F&amp;num=2&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fbikeyface.com%2Ffeed%2F&amp;num=2&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<!--<section class="rssfeed img">
+    <h2 class="feedtitle img">Insert IMG</h2>
+    <script>$('h2.img').click(function () {$('article.img-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist img-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.insertimg.com%2Ffeed%2F&amp;num=1&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fwww.insertimg.com%2Ffeed%2F&amp;num=2&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+
+<section class="rssfeed aj">
+    <h2 class="feedtitle aj">ASBO Jesus</h2>
+	<script>$('h2.aj').click(function () {$('article.aj-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist aj-feed">
+			<script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fasbojesus.wordpress.com%2Ffeed%2F&amp;num=1&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+			<noscript>
+				<a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fasbojesus.wordpress.com%2Ffeed%2F&amp;num=2&amp;utf=y&amp;html=y">View RSS feed</a>
+			</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>-->
+
+<section class="rssfeed tf">
+    <h2 class="feedtitle tf">Marketooist</h2>
+    <script>$('h2.tf').click(function () {$('article.tf-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist tf-feed">
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftomfishburne.com%2Ffeed&amp;num=1&amp;targ=y&amp;utf=y"  type="text/javascript"></script>
+            <noscript>
+                <a href="http://feed2js.org//feed2js.php?src=http%3A%2F%2Ftomfishburne.com%2Ffeed&amp;num=1&amp;targ=y&amp;utf=y&amp;html=y">View RSS feed</a>
+            </noscript>
+    		<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+<!--
+<section class="rssfeed example">
+	<h2 class="feedtitle example">Example</h2>
+	<script>$('h2.example').click(function () {$('article.example-feed').toggleClass('feed');});</script>
+		<article class="feed feedlist example-feed">
+			<span class="rss2js-articles"><script src="http://convert.rss-to-javascript.com/?src=http://www.textually.org/atom.xml&amp;desc=0&amp;desc_max=7&chan=0&simple_chan=0&amp;font=&fgcolor=&bgcolor=&date=0&amp;target=&amp;num=2&amp;target=&amp;use_lists=1&amp;font_size=" ></script></span>
+			<noscript>Your browser does not support JavaScript.</noscript>
+			<div style="clear:both;">&nbsp;</div>
+		</article>
+</section>
+-->
+
+<div style="clear:both;">&nbsp;</div>
+<footer>
+<!-- the version number matches the notation in the appcache manifest -->
+	<p>&copy; 2014 <a href="http://antoinerjwright.com" target="_blank">Antoine RJ Wright</a> / RSS.ARJW <span class="version" title="3.16.41">v3</span> /  <a href="https://dl.dropbox.com/s/ydpcclwlu2nlpc5/rssarjwDoc.opml" target="_blank">Docs</a></p>
+</footer>
+</body>
+</html>
